@@ -3,39 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Streamline Solutions Ltd - Premier logistics and transportation services, offering freight forwarding, warehousing, and last-mile delivery worldwide.">
-    <meta name="keywords" content="logistics, transportation, Streamline Solutions Ltd, freight forwarding, warehousing, delivery, supply chain">
-    <meta name="author" content="Streamline Solutions Ltd">
-    <title>Streamline Solutions Ltd - Global Logistics</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- AOS CSS for animations -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts for Open Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Streamline Solutions Limited</title>
     <style>
-        :root {
-            --midnight-navy: #1A2E44;
-            --vibrant-teal: #00C4B4;
-            --soft-ivory: #F8F1E9;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
+
         body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: var(--soft-ivory);
+            overflow-x: hidden;
         }
-        .hero-section {
+
+        /* Navigation Bar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.9), rgba(0, 170, 255, 0.2));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.95), rgba(0, 170, 255, 0.3));
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar .logo img {
+            height: 50px;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .navbar .logo img:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
             position: relative;
-            min-height: 100vh;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #00aaff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #00aaff;
+        }
+
+        .nav-links a.active {
+            color: #00aaff;
+            font-weight: bold;
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            color: #00aaff;
+            transform: scale(1.2);
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            position: fixed;
+            top: 0;
+            z-index: 1001;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #00aaff;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Homepage with Parallax */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: var(--soft-ivory);
-            overflow: hidden;
+            color: white;
         }
-        .hero-carousel {
+
+        .slideshow {
             position: absolute;
             top: 0;
             left: 0;
@@ -43,581 +139,875 @@
             height: 100%;
             z-index: -1;
         }
-        .hero-carousel img {
+
+        .slide {
+            position: absolute;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            position: absolute;
+            background-size: cover;
+            background-position: center;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
+            transform: scale(1.15);
+            filter: brightness(0.8);
         }
-        .hero-carousel img.active {
+
+        .slide.active {
             opacity: 1;
+            transform: scale(1);
+            filter: brightness(1);
+            animation: parallax 12s linear infinite;
         }
-        .hero-section::before {
+
+        @keyframes parallax {
+            0% { transform: scale(1) translateY(0); }
+            100% { transform: scale(1.15) translateY(-30px); }
+        }
+
+        .hero-content {
+            background: rgba(0, 0, 0, 0.55);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .hero-content h1 {
+            font-size: 64px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 26px;
+            margin-top: 20px;
+            max-width: 750px;
+            animation: fadeInUp 1.7s ease-out;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 35px;
+            background: linear-gradient(45deg, #00aaff, #0088cc);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 170, 255, 0.5);
+        }
+
+        /* Intro Section */
+        .intro {
+            padding: 100px 10%;
+            background: linear-gradient(180deg, #f4f4f4, #e0e0e0);
+            text-align: center;
+        }
+
+        .intro h2 {
+            font-size: 40px;
+            margin-bottom: 25px;
+            color: #222;
+        }
+
+        .intro p {
+            font-size: 20px;
+            color: #555;
+            max-width: 850px;
+            margin: 0 auto 50px;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 25px;
+        }
+
+        .intro-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(26, 46, 68, 0.6), rgba(26, 46, 68, 0.8));
-            z-index: 0;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            padding: 2rem;
-            max-width: 800px;
-        }
-        .navbar {
-            background: var(--midnight-navy);
-            padding: 1.5rem 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .nav-link {
-            position: relative;
-            padding: 0.5rem 1rem;
-            color: var(--soft-ivory);
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        .nav-link:hover {
-            color: var(--vibrant-teal);
-            transform: translateY(-2px);
-            text-shadow: 0 0 10px rgba(0, 196, 180, 0.5);
-        }
-        .dropdown:hover .dropdown-menu {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .dropdown-menu {
-            display: none;
+            background: linear-gradient(45deg, rgba(0, 170, 255, 0.1), transparent);
             opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            background: var(--midnight-navy);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.4s ease;
         }
-        .dropdown-menu a {
-            color: var(--soft-ivory);
-            padding: 0.5rem 1rem;
-            display: block;
-            transition: background 0.3s ease;
+
+        .intro-card:hover::before {
+            opacity: 1;
         }
-        .dropdown-menu a:hover {
-            background: var(--vibrant-teal);
+
+        .intro-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: transform 0.5s ease, filter 0.5s ease;
         }
-        .navbar-cta {
-            background: var(--vibrant-teal);
-            color: var(--soft-ivory);
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .intro-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            background: #f9f9f9;
         }
-        .navbar-cta:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(0, 196, 180, 0.5);
+
+        .intro-card:hover img {
+            transform: scale(1.08);
+            filter: brightness(1.1);
         }
-        .hamburger {
+
+        /* Logistics Modes Section */
+        .logistics-modes {
+            padding: 50px 10%;
+            background: #fff;
+            text-align: center;
+        }
+
+        .logistics-modes h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        .logistics-modes p {
+            font-size: 18px;
+            color: #555;
+            max-width: 950px;
+            margin: 0 auto 40px;
+        }
+
+        /* Trading Modes Section */
+        .trading-modes {
+            padding: 50px 10%;
+            background: #fff;
+            text-align: center;
+        }
+
+        .trading-modes h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        .trading-modes p {
+            font-size: 18px;
+            color: #555;
+            max-width: 950px;
+            margin: 0 auto 40px;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 10%;
+            background: linear-gradient(180deg, #fff, #f4f4f4);
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 40px;
+            margin-bottom: 25px;
+            color: #222;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 25px;
+        }
+
+        .testimonial-card {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 12px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .testimonial-card img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            transition: transform 0.4s ease, border 0.4s ease;
+        }
+
+        .testimonial-card:hover img {
+            transform: scale(1.15);
+            border: 2px solid #00aaff;
+        }
+
+        .testimonial-card p {
+            font-size: 17px;
+            color: #555;
+        }
+
+        .testimonial-card h4 {
+            margin-top: 15px;
+            color: #222;
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 10%;
+            text-align: center;
+        }
+
+        .section h2 {
+            font-size: 40px;
+            margin-bottom: 25px;
+            color: #222;
+        }
+
+        .section p {
+            font-size: 20px;
+            color: #555;
+            max-width: 850px;
+            margin: 0 auto 50px;
+        }
+
+        .services-grid, .trading-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card, .trading-card {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 12px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before, .trading-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 170, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover::before, .trading-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover, .trading-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .service-card img, .trading-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .service-card:hover img, .trading-card:hover img {
+            transform: scale(1.08);
+            filter: brightness(1.1);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(45deg, #00aaff, #0088cc);
+            color: white;
+            position: relative;
+        }
+
+        .contact h2 {
+            font-size: 40px;
+            margin-bottom: 25px;
+        }
+
+        .contact p {
+            font-size: 20px;
+            max-width: 850px;
+            margin: 0 auto 50px;
+        }
+
+        .contact form {
+            max-width: 600px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 20px;
-            cursor: pointer;
+            gap: 20px;
         }
-        .hamburger span {
-            width: 100%;
-            height: 3px;
-            background: var(--soft-ivory);
-            transition: all 0.3s ease;
-        }
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-        .card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .contact input, .contact textarea, .contact select {
+            padding: 12px;
             border: none;
-            background: var(--soft-ivory);
+            border-radius: 6px;
+            font-size: 17px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
         }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+
+        .contact input:focus, .contact textarea:focus, .contact select:focus {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            transform: scale(1.02);
+            outline: none;
         }
-        .btn-primary {
-            background: var(--vibrant-teal);
-            color: var(--soft-ivory);
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .contact button {
+            padding: 12px;
+            background: #222;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(0, 196, 180, 0.5);
+
+        .contact button:hover {
+            background: #444;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
-        .contact-section {
-            background: var(--midnight-navy);
-            color: var(--soft-ivory);
-            padding: 5rem 0;
-        }
-        .form-container, .tracking-form, .newsletter-form {
-            background: var(--soft-ivory);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        .sticky-quote {
+
+        /* Modal for Contact Form */
+        .modal {
+            display: none;
             position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            z-index: 1000;
-            background: var(--vibrant-teal);
-            color: var(--soft-ivory);
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .sticky-quote:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(0, 196, 180, 0.5);
-        }
-        .testimonials-section .card {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .testimonials-section img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .map-section, .stats-section {
-            background: url('https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1920') no-repeat center center/cover;
-            position: relative;
-            padding: 5rem 0;
-            background-attachment: fixed;
-        }
-        .map-section::before, .stats-section::before {
-            content: '';
-            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(248, 241, 233, 0.9);
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
         }
-        .counter {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--midnight-navy);
-            transition: all 2s ease;
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            animation: slideIn 0.5s ease-out;
         }
-        .logo-text {
-            fill: var(--vibrant-teal);
-            font-family: 'Open Sans', sans-serif;
-            font-weight: 700;
+
+        .modal-content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #222;
         }
-        .logo-subtext {
-            fill: var(--soft-ivory);
-            font-family: 'Open Sans', sans-serif;
-            font-weight: 400;
+
+        .modal-content form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-        @media (max-width: 767px) {
-            .testimonials-section .card {
+
+        .modal-content input, .modal-content textarea, .modal-content select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .modal-content button {
+            padding: 12px;
+            background: #00aaff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .modal-content button:hover {
+            background: #0088cc;
+            transform: translateY(-3px);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #222;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, #333, #222);
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        footer a {
+            color: #00aaff;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #0088cc;
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
                 flex-direction: column;
-                text-align: center;
+                align-items: center;
             }
-            .map-section, .stats-section {
-                background-attachment: scroll;
+
+            .navbar .logo {
+                margin-right: 0;
+                margin-bottom: 15px;
             }
-            .dropdown-menu {
-                position: relative;
-                background: rgba(26, 46, 68, 0.95);
+
+            .nav-links {
+                margin-top: 15px;
+            }
+
+            .hero-content h1 {
+                font-size: 48px;
+            }
+
+            .hero-content p {
+                font-size: 20px;
+            }
+
+            .hero-content {
+                padding: 25px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
             }
         }
     </style>
 </head>
-<body class="antialiased">
-    <!-- Navigation -->
-    <nav class="navbar sticky-top text-[var(--soft-ivory)]">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <div>
-                <a href="#" class="flex items-center">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYwIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTYwIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHJlY3Qgd2lkdGg9IjE2MCIgaGVpZ2h0PSI0OCIgZmlsbD0iIzFBMjU0NCIvPgogICAgPHBhdGggZD0iTTE4IDI0QzE4IDE5LjU4MTMgMjEuNTgxMyAxNiAyNiAxNkMyOS41ODEzIDE2IDMzIDE5LjU4MTMgMzMgMjRDMzMgMjguNDE4NyAyOS41ODEzIDMyIDI2IDMySDE4QzEzLjU4MTMgMzIgMTAgMjguNDE4NyAxMCAyNEMxMCAxOS41ODEzIDEzLjU4MTMgMTYgMTggMTZIMjRaIiBmaWxsPSIjMDBDNEI0Ii8+CiAgICA8dGV4dCB4PSIxNiIgeT0iMjgiIGZpbGw9IiNGOEYxRTkiIGZvbnQtZmFtaWx5PSJPcGVuIFNhbnMsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI3MDAiPlNTPC90ZXh0PgogICAgPHRleHQgeD0iNDgiIHk9IjI4IiBmaWxsPSIjRjhGMUU5IiBmb250LWZhbWlseT0iT3BlbiBTYW5zLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iNDAwIj5TdHJlYW1saW5lIFNvbHV0aW9ucyBMdGQ8L3RleHQ+Cjwvc3ZnPg==" alt="Streamline Solutions Ltd Logo" class="h-12">
-                </a>
-            </div>
-            <div class="hidden md:flex items-center space-x-6">
-                <a href="#home" class="nav-link font-semibold">Home</a>
-                <a href="#about" class="nav-link font-semibold">About</a>
-                <div class="dropdown relative">
-                    <a href="#services" class="nav-link font-semibold">Services</a>
-                    <div class="dropdown-menu absolute mt-2 w-48 right-0">
-                        <a href="#services" class="hover:text-[var(--soft-ivory)]">Freight Forwarding</a>
-                        <a href="#services" class="hover:text-[var(--soft-ivory)]">Warehousing</a>
-                        <a href="#services" class="hover:text-[var(--soft-ivory)]">Last-Mile Delivery</a>
-                    </div>
-                </div>
-                <a href="#fleet" class="nav-link font-semibold">Fleet</a>
-                <a href="#tracking" class="nav-link font-semibold">Track Shipment</a>
-                <a href="#testimonials" class="nav-link font-semibold">Testimonials</a>
-                <a href="#map" class="nav-link font-semibold">Our Network</a>
-                <a href="#contact" class="navbar-cta font-semibold">Contact</a>
-            </div>
-            <button class="md:hidden focus:outline-none" onclick="toggleMenu()">
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
-            <div id="mobile-menu" class="hidden md:hidden flex-col absolute top-16 left-0 w-full bg-[var(--midnight-navy)] text-[var(--soft-ivory)] p-4 z-50">
-                <a href="#home" class="py-2 nav-link">Home</a>
-                <a href="#about" class="py-2 nav-link">About</a>
-                <div class="dropdown">
-                    <a href="#services" class="py-2 nav-link">Services</a>
-                    <div class="dropdown-menu">
-                        <a href="#services" class="py-2">Freight Forwarding</a>
-                        <a href="#services" class="py-2">Warehousing</a>
-                        <a href="#services" class="py-2">Last-Mile Delivery</a>
-                    </div>
-                </div>
-                <a href="#fleet" class="py-2 nav-link">Fleet</a>
-                <a href="#tracking" class="py-2 nav-link">Track Shipment</a>
-                <a href="#testimonials" class="py-2 nav-link">Testimonials</a>
-                <a href="#map" class="py-2 nav-link">Our Network</a>
-                <a href="#contact" class="py-2 nav-link">Contact</a>
-            </div>
+<body>
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+        <div class="progress-bar"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="https://images.unsplash.com/photo-1621748941018-4ef1b5d3f6f9?auto=format&fit=crop&w=150&h=50" alt="Streamline Solutions Logo">
         </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Logistics</a></li>
+            <li><a href="#trading">Trading</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><button class="search-btn">🔍</button></li>
+        </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="hero-carousel">
-            <img src="https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Logistics Hero 1" class="active">
-            <img src="https://images.pexels.com/photos/4481258/pexels-photo-4481258.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Logistics Hero 2">
-            <img src="https://images.pexels.com/photos/9703860/pexels-photo-9703860.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Logistics Hero 3">
+    <!-- Homepage -->
+    <section id="home" class="hero">
+        <div class="slideshow">
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd7645c3d?auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1586979816789-80a3895f71a0?auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1563201516-67433f3e31cf?auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1512941937669-73d47c6f1e9e?auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1586528115962-3e9e059e2c3b?auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1603798129868-4288e6d3f87f?auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1590283603385-6e7639ed0e25?auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1586528116067-9e9e059e2c3b?auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1600585152915-d208bec867a1?auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1620283089818-4ef1b5d3f6f9?auto=format&fit=crop&w=1920&h=1080');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1599058917212-d750089bc07d?auto=format&fit=crop&w=1920&h=1080');"></div>
         </div>
-        <div class="hero-content" data-aos="fade-up">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">Streamline Solutions Ltd</h1>
-            <p class="text-lg md:text-2xl mb-6">Your Partner for Seamless Global Logistics</p>
-            <a href="#contact" class="btn-primary">Get a Quote</a>
+        <div class="hero-content">
+            <h1>Streamline Solutions Limited</h1>
+            <p>Empowering global businesses with cutting-edge logistics and trading solutions. From optimized supply chains to strategic market navigation, we drive efficiency, reliability, and sustainable growth.</p>
+            <a href="#contact" class="cta-button">Start Your Journey</a>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section id="stats" class="stats-section">
-        <div class="container mx-auto px-4 relative" data-aos="fade-in">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-[var(--midnight-navy)]">Our Impact</h2>
-            <div class="grid md:grid-cols-3 gap-6 text-center">
-                <div data-aos="fade-up">
-                    <p class="counter" data-target="50">0</p>
-                    <p class="text-lg text-[var(--midnight-navy)]">Countries Served</p>
-                </div>
-                <div data-aos="fade-up" data-aos-delay="100">
-                    <p class="counter" data-target="1000">0</p>
-                    <p class="text-lg text-[var(--midnight-navy)]">Daily Shipments</p>
-                </div>
-                <div data-aos="fade-up" data-aos-delay="200">
-                    <p class="counter" data-target="95">0</p>
-                    <p class="text-lg text-[var(--midnight-navy)]">Client Satisfaction (%)</p>
-                </div>
+    <!-- Intro Section -->
+    <section class="intro">
+        <h2>Why Choose Streamline Solutions?</h2>
+        <p>With 15 years of expertise, we deliver tailored logistics and trading solutions powered by AI, blockchain, and a global network spanning 60+ countries, ensuring unparalleled efficiency and sustainability.</p>
+        <div class="intro-grid">
+            <div class="intro-card">
+                <img src="https://images.unsplash.com/photo-1563201516-67433f3e31cf?auto=format&fit=crop&w=300&h=160" alt="Global Network">
+                <h3>Global Reach</h3>
+                <p>Our operations in over 60 countries ensure seamless delivery and access to global markets with strategic hubs in key regions.</p>
+            </div>
+            <div class="intro-card">
+                <img src="https://images.unsplash.com/photo-1516321310766-47f9dea26a58?auto=format&fit=crop&w=300&h=160" alt="Technology">
+                <h3>Advanced Technology</h3>
+                <p>AI-driven logistics, blockchain-secured transactions, and IoT-enabled tracking for real-time visibility and efficiency.</p>
+            </div>
+            <div class="intro-card">
+                <img src="https://images.unsplash.com/photo-1506399554444-9e4e3056a222?auto=format&fit=crop&w=300&h=160" alt="Sustainability">
+                <h3>Sustainable Practices</h3>
+                <p>Carbon-neutral initiatives, eco-friendly packaging, and green logistics to minimize environmental impact.</p>
+            </div>
+            <div class="intro-card">
+                <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=300&h=160" alt="Customer Support">
+                <h3>24/7 Customer Support</h3>
+                <p>Multilingual support teams available round-the-clock with dedicated account managers for personalized service.</p>
+            </div>
+            <div class="intro-card">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=300&h=160" alt="Custom Solutions">
+                <h3>Custom Solutions</h3>
+                <p>Bespoke strategies for logistics and trading, tailored to your business size, industry, and growth objectives.</p>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-16 bg-[var(--soft-ivory)]">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-[var(--midnight-navy)]" data-aos="fade-in">About Us</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div data-aos="fade-right">
-                    <img src="https://images.pexels.com/photos/6169668/pexels-photo-6169668.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="About Streamline Solutions" class="rounded-lg shadow-lg w-full h-auto">
-                </div>
-                <div data-aos="fade-left" class="flex items-center">
-                    <div>
-                        <p class="text-lg mb-4 text-[var(--midnight-navy)]">Established in 2020, Streamline Solutions Ltd is a leader in logistics, providing innovative freight forwarding, warehousing, and last-mile delivery services.</p>
-                        <p class="text-lg text-[var(--midnight-navy)]">Our technology-driven approach ensures efficiency, reliability, and sustainability across global supply chains.</p>
-                        <a href="#contact" class="btn-primary mt-4 inline-block">Learn More</a>
-                    </div>
-                </div>
+    <!-- Logistics Services -->
+    <section id="services" class="section">
+        <h2>Logistics Services</h2>
+        <p>Our logistics solutions optimize global supply chains with a multi-modal approach, leveraging AI, IoT, and sustainable practices to ensure efficiency, reliability, and scalability for businesses of all sizes.</p>
+        <div class="logistics-modes">
+            <h3>Our Modes of Logistics</h3>
+            <p>Streamline Solutions Limited excels in multi-modal logistics, integrating air, sea, rail, and road transport to deliver tailored solutions. Our AI-driven route optimization, IoT-enabled tracking, and blockchain-secured documentation ensure real-time visibility and security. We prioritize sustainability with eco-friendly vessels, electric vehicles, and carbon offset programs, serving over 10,000 clients annually across 60+ countries with a 98% on-time delivery rate.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1586528115962-3e9e059e2c3b?auto=format&fit=crop&w=300&h=160" alt="Air Transportation">
+                <h3>Air Transportation</h3>
+                <p>Fastest delivery for time-sensitive goods, connecting 200+ major airports. Features priority handling, temperature-controlled cargo for perishables, and real-time tracking with 99.5% reliability.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1590283603385-6e7639ed0e25?auto=format&fit=crop&w=300&h=160" alt="Sea Transportation">
+                <h3>Sea Transportation</h3>
+                <p>Scalable ocean freight for high-volume shipments, offering FCL and LCL options. Eco-friendly vessels reduce emissions by 20%, with port-to-port tracking and automated customs clearance.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1512941937669-73d47c6f1e9e?auto=format&fit=crop&w=300&h=160" alt="Rail Transportation">
+                <h3>Rail Transportation</h3>
+                <p>Sustainable long-distance transport with intermodal solutions, reducing carbon footprint by 30%. Real-time monitoring and optimized scheduling ensure cost-effective delivery across continents.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1603798129868-4288e6d3f87f?auto=format&fit=crop&w=300&h=160" alt="Road Transportation">
+                <h3>Road Transportation</h3>
+                <p>Flexible last-mile delivery with a fleet of 1,000+ GPS-equipped vehicles, including electric trucks. Supports same-day delivery in urban areas with 95% on-time performance.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1586979816789-80a3895f71a0?auto=format&fit=crop&w=300&h=160" alt="Warehousing">
+                <h3>Warehousing</h3>
+                <p>50+ global facilities with automated inventory systems, climate control, and 24/7 security. IoT sensors monitor stock levels, reducing errors by 40%.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd7645c3d?auto=format&fit=crop&w=300&h=160" alt="Freight Forwarding">
+                <h3>Freight Forwarding</h3>
+                <p>End-to-end solutions with customs clearance, documentation, and multi-modal coordination. Handles 500,000+ shipments annually with blockchain-secured paperwork.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1563201516-67433f3e31cf?auto=format&fit=crop&w=300&h=160" alt="Supply Chain Management">
+                <h3>Supply Chain Management</h3>
+                <p>AI-driven optimization, predictive demand forecasting, and vendor synchronization. Reduces supply chain costs by 15% and improves delivery times by 25%.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07d?auto=format&fit=crop&w=300&h=160" alt="Cold Chain Logistics">
+                <h3>Cold Chain Logistics</h3>
+                <p>Specialized refrigerated transport and storage for perishables and pharmaceuticals, maintaining strict temperature controls with real-time monitoring.</p>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-16 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-[var(--midnight-navy)]" data-aos="fade-in">Our Services</h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="card rounded-lg shadow-lg" data-aos="zoom-in">
-                    <img src="https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Freight Forwarding" class="w-full h-64 object-cover rounded-t-lg">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 text-[var(--midnight-navy)]">Freight Forwarding</h3>
-                        <p class="text-[var(--midnight-navy)]">Global shipping with expert customs management.</p>
-                        <a href="#contact" class="btn-primary mt-4 inline-block">Request Service</a>
-                    </div>
-                </div>
-                <div class="card rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="100">
-                    <img src="https://images.pexels.com/photos/4481258/pexels-photo-4481258.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Warehousing" class="w-full h-64 object-cover rounded-t-lg">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 text-[var(--midnight-navy)]">Warehousing</h3>
-                        <p class="text-[var(--midnight-navy)]">Secure storage with real-time inventory tracking.</p>
-                        <a href="#contact" class="btn-primary mt-4 inline-block">Request Service</a>
-                    </div>
-                </div>
-                <div class="card rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="https://images.pexels.com/photos/9703860/pexels-photo-9703860.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Last-Mile Delivery" class="w-full h-64 object-cover rounded-t-lg">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 text-[var(--midnight-navy)]">Last-Mile Delivery</h3>
-                        <p class="text-[var(--midnight-navy)]">Fast, reliable delivery to your customers.</p>
-                        <a href="#contact" class="btn-primary mt-4 inline-block">Request Service</a>
-                    </div>
-                </div>
-            </div>
+    <!-- Trading Services -->
+    <section id="trading" class="section">
+        <h2>Trading Services</h2>
+        <p>Our trading services empower businesses to excel in global markets with strategic expertise, advanced analytics, and robust risk management. We handle $2B+ in annual trade volume across 50+ markets.</p>
+        <div class="trading-modes">
+            <h3>Our Approach to Trading</h3>
+            <p>Streamline Solutions Limited delivers a dynamic trading ecosystem, specializing in commodities (agriculture, energy, metals), import/export, and market intelligence. Our platform integrates real-time data from 20+ global exchanges, predictive analytics for market trends, and blockchain for transparent transactions. With a team of 100+ trade experts, we execute 50,000+ trades annually, mitigating risks through advanced hedging and compliance with international regulations.</p>
         </div>
-    </section>
-
-    <!-- Fleet Section -->
-    <section id="fleet" class="py-16 bg-[var(--soft-ivory)]">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-[var(--midnight-navy)]" data-aos="fade-in">Our Fleet</h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="card rounded-lg shadow-lg" data-aos="fade-up">
-                    <img src="https://images.pexels.com/photos/236705/pexels-photo-236705.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Cargo Truck" class="w-full h-64 object-cover rounded-t-lg">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 text-[var(--midnight-navy)]">Cargo Trucks</h3>
-                        <p class="text-[var(--midnight-navy)]">Heavy-duty vehicles for large-scale freight.</p>
-                        <a href="#contact" class="btn-primary mt-4 inline-block">Inquire Now</a>
-                    </div>
-                </div>
-                <div class="card rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://images.pexels.com/photos/1632790/pexels-photo-1632790.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Delivery Vans" class="w-full h-64 object-cover rounded-t-lg">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 text-[var(--midnight-navy)]">Delivery Vans</h3>
-                        <p class="text-[var(--midnight-navy)]">Agile vans for urban deliveries.</p>
-                        <a href="#contact" class="btn-primary mt-4 inline-block">Inquire Now</a>
-                    </div>
-                </div>
-                <div class="card rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://images.pexels.com/photos/258750/pexels-photo-258750.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Refrigerated Vehicles" class="w-full h-64 object-cover rounded-t-lg">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 text-[var(--midnight-navy)]">Refrigerated Vehicles</h3>
-                        <p class="text-[var(--midnight-navy)]">Specialized trucks for sensitive cargo.</p>
-                        <a href="#contact" class="btn-primary mt-4 inline-block">Inquire Now</a>
-                    </div>
-                </div>
+        <div class="trading-grid">
+            <div class="trading-card">
+                <img src="https://images.unsplash.com/photo-1612872087720-48736d5701e8?auto=format&fit=crop&w=300&h=160" alt="Commodities Trading">
+                <h3>Commodities Trading</h3>
+                <p>Trade high-demand commodities like grains, coffee, oil, natural gas, copper, and aluminum across 30+ exchanges. Real-time insights and hedging reduce volatility risks by 35%.</p>
+            </div>
+            <div class="trading-card">
+                <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=300&h=160" alt="Import/Export">
+                <h3>Import/Export</h3>
+                <p>Manage $500M+ in cross-border trade with automated compliance, tariff optimization, and logistics integration. Supports 10,000+ annual shipments with 99% clearance success.</p>
+            </div>
+            <div class="trading-card">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=300&h=160" alt="Trade Consulting">
+                <h3>Trade Consulting</h3>
+                <p>Expert advice on market entry, trade agreements, and tariff strategies. Our team has facilitated 200+ market entries with a 90% success rate for clients.</p>
+            </div>
+            <div class="trading-card">
+                <img src="https://images.unsplash.com/photo-1551288049-b1bd5277e0b7?auto=format&fit=crop&w=300&h=160" alt="Market Analysis">
+                <h3>Market Analysis</h3>
+                <p>Predictive modeling and AI analytics identify trends across 50+ markets, improving trade decisions by 20%. Real-time data from 20+ exchanges ensures accuracy.</p>
+            </div>
+            <div class="trading-card">
+                <img src="https://images.unsplash.com/photo-1591696205602-2f950c9b91b6?auto=format&fit=crop&w=300&h=160" alt="Risk Management">
+                <h3>Risk Management</h3>
+                <p>Advanced hedging, insurance, and volatility analysis protect $1B+ in trades annually, reducing financial exposure by 30% in volatile markets.</p>
+            </div>
+            <div class="trading-card">
+                <img src="https://images.unsplash.com/photo-1591696205602-2f950c9b91b6?auto=format&fit=crop&w=300&h=160" alt="Blockchain Trading">
+                <h3>Blockchain Trading</h3>
+                <p>Secure, transparent transactions using blockchain technology, processing 5,000+ trades monthly with zero discrepancies and full auditability.</p>
             </div>
         </div>
     </section>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="py-16 bg-gray-100 testimonials-section">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-[var(--midnight-navy)]" data-aos="fade-in">What Our Clients Say</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="card rounded-lg shadow-lg" data-aos="fade-up">
-                    <div class="p-6">
-                        <img src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=200" alt="Client 1">
-                        <p class="text-lg italic mb-4 text-[var(--midnight-navy)]">"Streamline Solutions transformed our logistics operations."</p>
-                        <h4 class="font-semibold text-[var(--midnight-navy)]">Sarah Johnson</h4>
-                        <p class="text-gray-600">CEO, Global Trade Co.</p>
-                    </div>
-                </div>
-                <div class="card rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <div class="p-6">
-                        <img src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=200" alt="Client 2">
-                        <p class="text-lg italic mb-4 text-[var(--midnight-navy)]">"Their real-time tracking is exceptional."</p>
-                        <h4 class="font-semibold text-[var(--midnight-navy)]">Michael Lee</h4>
-                        <p class="text-gray-600">Logistics Director, TechTrend</p>
-                    </div>
-                </div>
+    <section id="testimonials" class="testimonials">
+        <h2>Client Success Stories</h2>
+        <p>Hear from our satisfied clients who trust us with their logistics and trading needs across the globe.</p>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=90&h=90" alt="Client 1">
+                <p>"Streamline’s AI-driven logistics cut our supply chain costs by 25% and boosted delivery speed by 30%."</p>
+                <h4>John Doe, CEO of TradeCorp</h4>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=90&h=90" alt="Client 2">
+                <p>"Their trading platform and risk management strategies helped us achieve a 15% profit increase in volatile markets."</p>
+                <h4>Jane Smith, CFO of Global Imports</h4>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=90&h=90" alt="Client 3">
+                <p>"The 24/7 support and IoT tracking ensured our global shipments arrived on time, every time."</p>
+                <h4>Michael Lee, Operations Manager</h4>
             </div>
         </div>
     </section>
 
-    <!-- Network Map Section -->
-    <section id="map" class="map-section">
-        <div class="container mx-auto px-4 relative" data-aos="fade-in">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-[var(--midnight-navy)]">Our Global Network</h2>
-            <div class="bg-[var(--soft-ivory)] rounded-lg shadow-lg p-6 text-center">
-                <p class="text-lg mb-4 text-[var(--midnight-navy)]">Connecting over 50 countries with our trusted logistics network.</p>
-                <div class="h-64 bg-gray-200 rounded-lg flex items-center justify-center">
-                    <p class="text-[var(--midnight-navy)]">Interactive Route Map Placeholder (Integrate with Google Maps API)</p>
-                </div>
-                <a href="#contact" class="btn-primary mt-4 inline-block">Explore Network</a>
+    <!-- About Us -->
+    <section id="about" class="section">
+        <h2>About Us</h2>
+        <p>Founded in 2010, Streamline Solutions Limited is a global leader in logistics and trading, serving 10,000+ clients with a team of 250+ professionals across 60+ countries. Our mission is to deliver innovative, sustainable solutions for global business growth.</p>
+        <div class="intro-grid">
+            <div class="intro-card">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=300&h=160" alt="Our Team">
+                <h3>Our Team</h3>
+                <p>250+ experts in logistics, trading, and technology, driving innovation across global operations.</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Tracking Section -->
-    <section id="tracking" class="py-16 bg-[var(--soft-ivory)]">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-[var(--midnight-navy)]" data-aos="fade-in">Track Your Shipment</h2>
-            <div class="tracking-form mx-auto max-w-md" data-aos="fade-up">
-                <form action="track_shipment.php" method="POST">
-                    <div class="mb-4">
-                        <label for="tracking-id" class="block text-lg font-medium mb-2 text-[var(--midnight-navy)]">Tracking ID</label>
-                        <input type="text" id="tracking-id" name="tracking-id" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[var(--vibrant-teal)]" placeholder="Enter your tracking ID" required>
-                    </div>
-                    <button type="submit" class="btn-primary w-full">Track Now</button>
-                </form>
+            <div class="intro-card">
+                <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=300&h=160" alt="Our Values">
+                <h3>Our Values</h3>
+                <p>Integrity, innovation, sustainability, and client-centricity define our approach to business.</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Newsletter Section -->
-    <section id="newsletter" class="py-16 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-[var(--midnight-navy)]" data-aos="fade-in">Stay Updated</h2>
-            <div class="newsletter-form mx-auto max-w-md" data-aos="fade-up">
-                <form action="subscribe_newsletter.php" method="POST">
-                    <div class="mb-4">
-                        <label for="email" class="block text-lg font-medium mb-2 text-[var(--midnight-navy)]">Email Address</label>
-                        <input type="email" id="email" name="email" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[var(--vibrant-teal)]" placeholder="Enter your email" required>
-                    </div>
-                    <button type="submit" class="btn-primary w-full">Subscribe</button>
-                </form>
+            <div class="intro-card">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=300&h=160" alt="Our Mission">
+                <h3>Our Mission</h3>
+                <p>Simplify global supply chains and empower businesses through strategic, data-driven trading.</p>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container mx-auto px-4" data-aos="fade-in">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">Contact Us</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="form-container">
-                    <form action="submit_contact.php" method="POST">
-                        <div class="mb-4">
-                            <label for="name" class="block text-lg font-medium mb-2 text-[var(--midnight-navy)]">Name</label>
-                            <input type="text" id="name" name="name" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[var(--vibrant-teal)]" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="email" class="block text-lg font-medium mb-2 text-[var(--midnight-navy)]">Email</label>
-                            <input type="email" id="email" name="email" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[var(--vibrant-teal)]" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="message" class="block text-lg font-medium mb-2 text-[var(--midnight-navy)]">Message</label>
-                            <textarea id="message" name="message" rows="5" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[var(--vibrant-teal)]" required></textarea>
-                        </div>
-                        <button type="submit" class="btn-primary w-full">Send Message</button>
-                    </form>
-                </div>
-                <div class="flex items-center">
-                    <div>
-                        <h3 class="text-2xl font-semibold mb-4">Get in Touch</h3>
-                        <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> 456 Logistics Way, Suite 200, London, UK</p>
-                        <p class="mb-2"><i class="fas fa-phone mr-2"></i> +44 20 9876 5432</p>
-                        <p><i class="fas fa-envelope mr-2"></i> info@streamlinesolutionsltd.com</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section id="contact" class="section contact">
+        <h2>Contact Us</h2>
+        <p>Reach out to discuss your logistics and trading needs or request a customized quote. Our team is ready to assist you 24/7.</p>
+        <button class="cta-button open-modal">Get in Touch</button>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-[var(--midnight-navy)] text-[var(--soft-ivory)] py-8">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-xl font-semibold mb-4">Streamline Solutions Ltd</h3>
-                    <p class="text-[var(--soft-ivory)]">Your trusted partner for global logistics and transportation solutions.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
-                    <ul>
-                        <li><a href="#services" class="hover:text-[var(--vibrant-teal)]">Services</a></li>
-                        <li><a href="#fleet" class="hover:text-[var(--vibrant-teal)]">Fleet</a></li>
-                        <li><a href="#tracking" class="hover:text-[var(--vibrant-teal)]">Track Shipment</a></li>
-                        <li><a href="#contact" class="hover:text-[var(--vibrant-teal)]">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-xl font-semibold mb-4">Follow Us</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-2xl hover:text-[var(--vibrant-teal)]"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-2xl hover:text-[var(--vibrant-teal)]"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-2xl hover:text-[var(--vibrant-teal)]"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
-            <p class="text-center mt-8 text-[var(--soft-ivory)]">© 2025 Streamline Solutions Ltd. All Rights Reserved.</p>
+    <!-- Contact Modal -->
+    <div class="modal" id="contact-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Contact Us</h2>
+            <form>
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <select required>
+                    <option value="" disabled selected>Select Service</option>
+                    <option value="logistics">Logistics Services</option>
+                    <option value="trading">Trading Services</option>
+                    <option value="consulting">Consulting</option>
+                    <option value="other">Other</option>
+                </select>
+                <input type="text" placeholder="Company Name (Optional)">
+                <input type="tel" placeholder="Phone Number (Optional)">
+                <textarea placeholder="Your Message" rows="6" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
         </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Streamline Solutions Limited. All rights reserved.</p>
+        <p><a href="#contact">Contact</a> | <a href="#about">About</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </footer>
 
-    <!-- Sticky Quote Button -->
-    <a href="#contact" class="sticky-quote">Request a Quote</a>
-
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
+        // Slideshow functionality
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        showSlide(currentSlide);
+        setInterval(nextSlide, 2000);
+
+        // Smooth scrolling and active nav link
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('section');
+
+        navLinks.forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
                 const targetElement = document.getElementById(targetId);
-                targetElement.scrollIntoView({ behavior: 'smooth' });
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
             });
         });
 
-        // Mobile menu toggle
-        function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const hamburger = document.querySelector('.hamburger');
-            menu.classList.toggle('hidden');
-            hamburger.classList.toggle('active');
-        }
-
-        // Hero carousel
-        const images = document.querySelectorAll('.hero-carousel img');
-        let currentImage = 0;
-        function changeImage() {
-            images[currentImage].classList.remove('active');
-            currentImage = (currentImage + 1) % images.length;
-            images[currentImage].classList.add('active');
-        }
-        setInterval(changeImage, 5000);
-
-        // Counter animation
-        const counters = document.querySelectorAll('.counter');
-        counters.forEach(counter => {
-            const updateCounter = () => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                const increment = target / 100;
-                if (count < target) {
-                    counter.innerText = Math.ceil(count + increment);
-                    setTimeout(updateCounter, 20);
-                } else {
-                    counter.innerText = target;
+        // Highlight active section in nav
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
                 }
-            };
-            const observer = new IntersectionObserver(entries => {
-                if (entries[0].isIntersecting) {
-                    updateCounter();
-                    observer.disconnect();
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
                 }
-            }, { threshold: 0.5 });
-            observer.observe(counter);
+            });
+        });
+
+        // Scroll progress bar
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            const progressBar = document.querySelector('.progress-bar');
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + '%';
+
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('contact-modal');
+        const openModalBtn = document.querySelector('.open-modal');
+        const closeModalBtn = document.querySelector('.close-btn');
+
+        openModalBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Search button functionality (placeholder)
+        document.querySelector('.search-btn').addEventListener('click', () => {
+            alert('Search functionality coming soon!');
         });
     </script>
 </body>
